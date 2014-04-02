@@ -1,50 +1,59 @@
-// New Game
-var newGame = function newGame() {
-	numGuesses = 0;
-	$feedback.text('Make your guess!');
-	$guessList.children.remove();
-	$count.text(0);
-};
-
-$(document).ready(function(){
-
-	// Numbers
+// Numbers
 	var randomNumber = Math.floor(Math.random() * (1 - 100) + 1);
-	var $userGuess = +$('.userGuess').val();
+	var $userGuess = +$('#userGuess').val();
 	var difference = Math.abs(userGuess-randomNumber);
 	var numGuesses = 0;
 
-	// Elements
+// Elements
 	var $feedback = $('#feedback');
 	var $guessList = $('#guessList');
 	var $guessButton = $('#guessButton');
 	var $count = $('#count');
 	var $newGame = $('.new');
 
+// New Game
+var newGame = function (newGame) {
+	numGuesses = 0;
+	$feedback.text('Make your guess!');
+	$('#userGuess').empty();
+	$guessList.children.remove();
+	$count.value(0);
+};
+
+$(document).ready(function(){
+
+	newGame();
+
 	// Game Play&Feedback
-	$guessButton.submit(function guessNumber() {
+	$guessButton.click(function (guessNumber) {
+
+		numGuesses++ ;
+		$count.text(numGuesses);
+
 			if (userGuess < 1 || userGuess > 100 || isNan(userGuess)) {
 
 				alert("Oops! Please choose a number between 1 and 100!");
 
 			} else {
 
-				numGuesses++;
-				$count.text(numGuesses);
-				$guessList.append($('<li>'+$userGuess+'</li>'));
-
 				if ($userGuess === randomNumber) {
 					$feedback.text('You got it!');
+					$guessList.append($('<li>'+$userGuess+ '</li>'));
 				} else if (difference < 10) {
 					$feedback.text('Hot hot hot!');
+					$guessList.append($('<li>'+$userGuess+ '</li>'));
 				} else if (difference < 25) {
 					$feedback.text('Getting closer!');
+					$guessList.append($('<li>'+$userGuess+ '</li>'));
 				} else if (difference < 50) {
 					$feedback.text('Pretty lukewarm.');
+					$guessList.append($('<li>'+$userGuess+ '</li>'));
 				} else if (difference < 85) {
 					$feedback.text('Yikes. Chilly!');
+					$guessList.append($('<li>'+$userGuess+ '</li>'));
 				} else {
 					$feedback.text('Absolutely freezing.');
+					$guessList.append($('<li>'+$userGuess+ '</li>'));
 				}
 			}
 	});
@@ -59,3 +68,4 @@ $(document).ready(function(){
 
 });
 
+$newGame.click(newGame());
