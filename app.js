@@ -1,10 +1,10 @@
-	// New Game
-	var newGame = function newGame() {
-		numGuesses = 0;
-		$feedback.text('Make your guess!');
-		$guessList.children.remove();
-		$count.text(0);
-	};
+// New Game
+var newGame = function newGame() {
+	numGuesses = 0;
+	$feedback.text('Make your guess!');
+	$guessList.children.remove();
+	$count.text(0);
+};
 
 $(document).ready(function(){
 
